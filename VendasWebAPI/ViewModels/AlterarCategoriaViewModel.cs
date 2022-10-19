@@ -16,4 +16,5 @@ namespace VendasWebAPI.ViewModels
 
 
     }
+
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VendasWebAPI.Entities;
 using VendasWebAPI.ViewModels;
@@ -28,6 +27,7 @@ namespace VendasWebAPI.Controllers
                 Valor = cadastrarProdutoViewModel.Valor,
                 Cor = cadastrarProdutoViewModel.Cor,
                 MarcaId = 1,
+                CategoriaId = 2
 
             };
 
@@ -38,15 +38,14 @@ namespace VendasWebAPI.Controllers
         }
 
 
-
         [HttpPut]
-        public async Task<IActionResult> AlterarProduto([FromBody]AlterarProdutoViewModel alterarProdutoViewModel)
+        public async Task<IActionResult> AlterarProduto([FromBody] AlterarProdutoViewModel alterarProdutoViewModel)
         {
             var produto = _mySQLDBContext.Produto.FirstOrDefault(p => p.Id == alterarProdutoViewModel.Id);
 
             if (produto == null)
             {
-                return  NotFound("produto nao foi localizado");
+                return NotFound("produto nao foi localizado");
             }
 
             produto.Nome = alterarProdutoViewModel.Nome;
@@ -57,7 +56,7 @@ namespace VendasWebAPI.Controllers
             _mySQLDBContext.Produto.Update(produto);
             await _mySQLDBContext.SaveChangesAsync();
 
-            return Ok(produto); 
+            return Ok(produto);
         }
 
 
@@ -68,7 +67,6 @@ namespace VendasWebAPI.Controllers
 
             return Ok(produtos);
         }
-
 
 
         [HttpGet("ListarProdutosPorId")]
@@ -85,7 +83,6 @@ namespace VendasWebAPI.Controllers
         }
 
 
-
         [HttpDelete]
         public async Task<IActionResult> RemoverProduto(int id)
         {
@@ -95,10 +92,10 @@ namespace VendasWebAPI.Controllers
             {
                 return NotFound("produto nao foi localizado");
             }
-         
+
             _mySQLDBContext.Produto.Remove(produto);
             await _mySQLDBContext.SaveChangesAsync();
-           
+
             return Ok();
         }
     }

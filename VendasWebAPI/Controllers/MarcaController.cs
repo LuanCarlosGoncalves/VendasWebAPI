@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VendasWebAPI.Entities;
 using VendasWebAPI.ViewModels;
@@ -15,6 +14,7 @@ namespace VendasWebAPI.Controllers
         {
             _mySQLDBContext = mySQLDBContext;
         }
+
 
         [HttpPost]
         public async Task<IActionResult> CadastrarMarca([FromBody] CadastrarMarcaViewModel cadastrarMarcaViewModel)
@@ -46,8 +46,6 @@ namespace VendasWebAPI.Controllers
             await _mySQLDBContext.SaveChangesAsync();
 
             return Ok(marca);
-
-
         }
 
 
@@ -60,6 +58,7 @@ namespace VendasWebAPI.Controllers
 
         }
 
+
         [HttpGet("ListarMarcaPorId")]
         public async Task<IActionResult> ListarMarcaPorId(int id)
         {
@@ -70,9 +69,9 @@ namespace VendasWebAPI.Controllers
                 return NotFound("Marca nao foi localizada");
             }
 
-            return Ok(Marca);   
-
+            return Ok(Marca);
         }
+
 
         [HttpDelete]
         public async Task<IActionResult> RemoverMarca(int id)
@@ -80,28 +79,15 @@ namespace VendasWebAPI.Controllers
             var Marca = _mySQLDBContext.Marca.Where(m => m.Id == id).FirstOrDefault();
 
             if (Marca == null)
-            
+
             {
                 return NotFound("Marca nao foi localizada");
             }
 
-
             _mySQLDBContext.Marca.Remove(Marca);
             await _mySQLDBContext.SaveChangesAsync();
 
-              return Ok();
-
-
+            return Ok();
         }
-
-
-
-
-
-
-
-
-
-
     }
 }

@@ -10,6 +10,8 @@ namespace VendasWebAPI.Entities
         public int Id { get; set; }
 
         [Required]
-        public string Nome { get; set; }    
+        public string Nome { get; set; }
+
+        public virtual ICollection<Produto> Produtos { get; set; }
     }
 }
