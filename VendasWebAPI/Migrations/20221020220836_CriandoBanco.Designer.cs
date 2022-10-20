@@ -11,8 +11,8 @@ using VendasWebAPI.Entities;
 namespace VendasWebAPI.Migrations
 {
     [DbContext(typeof(MySQLDBContext))]
-    [Migration("20221019225734_adicaoRelacionamentoEntreProdutoCategoriaMarca")]
-    partial class adicaoRelacionamentoEntreProdutoCategoriaMarca
+    [Migration("20221020220836_CriandoBanco")]
+    partial class CriandoBanco
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
