@@ -16,5 +16,8 @@ namespace VendasWebAPI.Entities
         public DateTime? DataNascimento { get; set; }
 
         public string CPF { get; internal set; }
+
+        public virtual ICollection<Venda> Vendas { get; set; }
+
     }
 }
