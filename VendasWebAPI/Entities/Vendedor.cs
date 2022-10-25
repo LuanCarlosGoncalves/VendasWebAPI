@@ -18,6 +18,5 @@ namespace VendasWebAPI.Entities
         public string CPF { get; internal set; }
 
         public virtual ICollection<Venda> Vendas { get; set; }
-
     }
 }
