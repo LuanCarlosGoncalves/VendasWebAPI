@@ -19,7 +19,9 @@ namespace VendasWebAPI.Entities
 
         public DbSet<Cliente> Cliente { get; set; }
 
+        public DbSet<Venda> Venda { get; set; }
 
+        public DbSet<ItemVenda> ItemVendas { get; set; }
 
     }
 }
