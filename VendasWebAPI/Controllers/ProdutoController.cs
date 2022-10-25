@@ -27,7 +27,7 @@ namespace VendasWebAPI.Controllers
                 Valor = cadastrarProdutoViewModel.Valor,
                 Cor = cadastrarProdutoViewModel.Cor,
                 MarcaId = 1,
-                CategoriaId = 2
+                CategoriaId = 1
 
             };
 

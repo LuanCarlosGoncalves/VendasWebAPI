@@ -66,7 +66,6 @@ namespace VendasWebAPI.Controllers
             return Ok(cliente);
         }
 
-        [HttpDelete]
 
         [HttpDelete]
         public async Task<IActionResult> RemoverCliente(int id)
