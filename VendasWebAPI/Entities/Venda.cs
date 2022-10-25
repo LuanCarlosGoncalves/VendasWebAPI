@@ -11,9 +11,13 @@ namespace VendasWebAPI.Entities
 
         public int ClienteId { get; set; }
 
+        public int VendedorId { get; set; }
+
         public DateTime Data { get; set; }
 
         public virtual Cliente Cliente { get; set; }
+
+        public virtual Vendedor Vendedor { get; set; }
 
         public virtual ICollection<ItemVenda> ItemVendas { get; set; }
     }

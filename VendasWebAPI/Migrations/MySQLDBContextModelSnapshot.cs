@@ -78,7 +78,7 @@ namespace VendasWebAPI.Migrations
 
                     b.HasIndex("VendaId");
 
-                    b.ToTable("ItemVendas");
+                    b.ToTable("ItemVenda");
                 });
 
             modelBuilder.Entity("VendasWebAPI.Entities.Marca", b =>
@@ -144,9 +144,14 @@ namespace VendasWebAPI.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("VendedorId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
+
+                    b.HasIndex("VendedorId");
 
                     b.ToTable("Venda");
                 });
@@ -223,7 +228,15 @@ namespace VendasWebAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("VendasWebAPI.Entities.Vendedor", "Vendedor")
+                        .WithMany("Vendas")
+                        .HasForeignKey("VendedorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Cliente");
+
+                    b.Navigation("Vendedor");
                 });
 
             modelBuilder.Entity("VendasWebAPI.Entities.Categoria", b =>
@@ -239,6 +252,11 @@ namespace VendasWebAPI.Migrations
             modelBuilder.Entity("VendasWebAPI.Entities.Venda", b =>
                 {
                     b.Navigation("ItemVendas");
+                });
+
+            modelBuilder.Entity("VendasWebAPI.Entities.Vendedor", b =>
+                {
+                    b.Navigation("Vendas");
                 });
 #pragma warning restore 612, 618
         }

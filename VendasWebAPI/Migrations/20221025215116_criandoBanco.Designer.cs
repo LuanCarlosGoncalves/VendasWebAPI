@@ -11,14 +11,14 @@ using VendasWebAPI.Entities;
 namespace VendasWebAPI.Migrations
 {
     [DbContext(typeof(MySQLDBContext))]
-    [Migration("20221020224635_addTabelaVendaItemVenda")]
-    partial class addTabelaVendaItemVenda
+    [Migration("20221025215116_criandoBanco")]
+    partial class criandoBanco
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("VendasWebAPI.Entities.Categoria", b =>
@@ -146,9 +146,14 @@ namespace VendasWebAPI.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("VendedorId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
+
+                    b.HasIndex("VendedorId");
 
                     b.ToTable("Venda");
                 });
@@ -225,7 +230,15 @@ namespace VendasWebAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("VendasWebAPI.Entities.Vendedor", "Vendedor")
+                        .WithMany("Vendas")
+                        .HasForeignKey("VendedorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Cliente");
+
+                    b.Navigation("Vendedor");
                 });
 
             modelBuilder.Entity("VendasWebAPI.Entities.Categoria", b =>
@@ -241,6 +254,11 @@ namespace VendasWebAPI.Migrations
             modelBuilder.Entity("VendasWebAPI.Entities.Venda", b =>
                 {
                     b.Navigation("ItemVendas");
+                });
+
+            modelBuilder.Entity("VendasWebAPI.Entities.Vendedor", b =>
+                {
+                    b.Navigation("Vendas");
                 });
 #pragma warning restore 612, 618
         }
