@@ -7,9 +7,9 @@ namespace VendasWebAPI.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int Id { get; set; } 
 
-        public string Nome { get; set; }    
+        public string Nome { get; set; } 
 
         public virtual ICollection<Produto> Produtos { get; set; }
     }

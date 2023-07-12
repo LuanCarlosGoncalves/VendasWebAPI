@@ -28,7 +28,6 @@ namespace VendasWebAPI.Controllers
                 Cor = cadastrarProdutoViewModel.Cor,
                 MarcaId = 1,
                 CategoriaId = 1
-
             };
 
             _mySQLDBContext.Produto.Add(produto);

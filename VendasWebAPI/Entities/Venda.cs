@@ -7,7 +7,7 @@ namespace VendasWebAPI.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int Id { get; set; } //chave primaria
 
         public int ClienteId { get; set; }
 
@@ -15,6 +15,7 @@ namespace VendasWebAPI.Entities
 
         public DateTime Data { get; set; }
 
+     
         public virtual Cliente Cliente { get; set; }
 
         public virtual Vendedor Vendedor { get; set; }
