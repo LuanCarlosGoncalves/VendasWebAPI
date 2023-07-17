@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using VendasWebAPI.Entities;
+using VendasWebAPI.DbContextMysql;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<MySQLDBContext>(options =>
+builder.Services.AddDbContext<MySQLDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
