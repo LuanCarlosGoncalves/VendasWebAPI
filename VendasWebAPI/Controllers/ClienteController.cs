@@ -31,7 +31,8 @@ namespace VendasWebAPI.Controllers
             };
 
             await _mySQLDbContext.Cliente.AddAsync(cliente);
-
+            
+            await _mySQLDbContext.SaveChangesAsync();
             return Ok("Sucesso.. gravou no banco");
         }
 

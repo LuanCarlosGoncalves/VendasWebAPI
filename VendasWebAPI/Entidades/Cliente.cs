@@ -7,7 +7,7 @@ namespace VendasWebAPI.Entidades
     {
         [Key] //chave primaria -> id unico na tabela
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] //adiciona o id automaticamente 
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string Nome { get; set; }
@@ -17,6 +17,7 @@ namespace VendasWebAPI.Entidades
 
         [Required]
         public string Endereco { get; set; }
-
+       
+        public string Profissao { get; internal set; }
     }
 }

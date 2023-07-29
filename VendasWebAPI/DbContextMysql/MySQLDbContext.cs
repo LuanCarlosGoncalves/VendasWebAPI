@@ -14,6 +14,14 @@ namespace VendasWebAPI.DbContextMysql
 
             public virtual DbSet<Funcionario> Funcionario { get; set; }
 
+            public virtual DbSet<Marca> Marca { get; set; }
+
+            public virtual DbSet<Categoria> Categoria { get; set; }
+
+            public virtual DbSet<Modelo> Modelo { get; set; }
+
+            
+
 
 
         
