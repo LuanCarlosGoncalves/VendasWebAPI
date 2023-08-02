@@ -20,7 +20,7 @@ namespace VendasWebAPI.DbContextMysql
 
             public virtual DbSet<Modelo> Modelo { get; set; }
 
-            
+            public virtual DbSet<Vendedor> Vendedor { get; set; }
 
 
 
