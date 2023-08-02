@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using VendasWebAPI.DbContextMysql;
 using VendasWebAPI.Entidades;
 using VendasWebAPI.ViewModels;
@@ -23,6 +24,7 @@ namespace VendasWebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Cadastrar([FromBody] CadastrarClienteViewModel model)
         {
+
             var cliente = new Cliente
             {
                 Nome = model.Nome,
@@ -36,5 +38,27 @@ namespace VendasWebAPI.Controllers
             return Ok("Sucesso.. gravou no banco");
         }
 
+
+        [HttpPut]
+        public async Task<IActionResult> Atualizar([FromBody] AtualizarClienteViewModel model)
+        {
+            var cliente = await _mySQLDbContext.Cliente.FirstOrDefaultAsync(p => p.Id == model.Id);
+
+            if (cliente == null) 
+            {
+                return BadRequest("cliente não localizado");
+            }
+
+            cliente.Nome = model.Nome;
+            cliente.Telefone = model.Telefone;
+            cliente.Endereco = model.Endereco;
+            cliente.Profissao = model.Profissao;
+
+            _mySQLDbContext.Cliente.Update(cliente);
+
+            await _mySQLDbContext.SaveChangesAsync();
+
+            return Ok("Alterado com sucesso.....");
+        }
     }
 }
