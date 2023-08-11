@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using VendasWebAPI.DbContextMysql;
 using VendasWebAPI.Entidades;
 using VendasWebAPI.ViewModels;
@@ -36,8 +37,37 @@ namespace VendasWebAPI.Controllers
 
         }
 
+        [HttpPut]
 
+        public async Task<IActionResult> Atualizar([FromBody] AtualizarCategoriaViewModel model)
+        {
+          var categoria = await _mySQLDbContext.Categoria.FirstOrDefaultAsync(p => p.Id == model.Id);
+
+         if (categoria == null)
+         {
+           return BadRequest("não localizado");
+         }
+
+            categoria.Nome = model.Nome;
+            categoria.Medida = model.Medida;
+            categoria.Tipo = model.Tipo;
+            
+
+            _mySQLDbContext.Categoria.Update(categoria);
+
+            await _mySQLDbContext.SaveChangesAsync();
+
+            return Ok("Alterado com sucesso.....");
+         
+        }
+        
 
 
     }
+
+
+
+
+
 }
+

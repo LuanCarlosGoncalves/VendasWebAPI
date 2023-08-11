@@ -30,6 +30,7 @@ namespace VendasWebAPI.Controllers
                 Nome = model.Nome,
                 Telefone = model.Telefone,
                 Endereco = model.Endereco,
+                Profissao = model.Profissao,
             };
 
             await _mySQLDbContext.Cliente.AddAsync(cliente);
@@ -55,9 +56,7 @@ namespace VendasWebAPI.Controllers
             cliente.Profissao = model.Profissao;
 
             _mySQLDbContext.Cliente.Update(cliente);
-
             await _mySQLDbContext.SaveChangesAsync();
-
             return Ok("Alterado com sucesso.....");
         }
     }

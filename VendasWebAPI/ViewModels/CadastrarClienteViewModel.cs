@@ -9,5 +9,7 @@ namespace VendasWebAPI.ViewModels
         public string Telefone { get; set; }
 
         public string Endereco { get; set; }
+
+        public string Profissao { get; set; }   
     }
 }

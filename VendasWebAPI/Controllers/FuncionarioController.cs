@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using VendasWebAPI.DbContextMysql;
 using VendasWebAPI.Entidades;
 using VendasWebAPI.ViewModels;
@@ -25,7 +26,7 @@ namespace VendasWebAPI.Controllers
             var funcionario = new Funcionario
             {
                 Nome = model.Nome,
-                Profissao = model.Profissao
+                Profissao = model.Profissao,
 
 
             };
@@ -33,6 +34,32 @@ namespace VendasWebAPI.Controllers
             await _mySQLDbContext.Funcionario.AddAsync(funcionario);
             await _mySQLDbContext.SaveChangesAsync();
             return Ok("salvo");
+
+        }
+
+
+        [HttpPut]
+
+        public async Task<IActionResult> Atualizar([FromBody] AtualizarFuncionarioViewModel model)
+        {
+            var funcionario = await _mySQLDbContext.Funcionario.FirstOrDefaultAsync(p => p.Id == model.Id);
+
+            if (funcionario == null)
+
+            {
+                return BadRequest("nao encontrado");
+
+            }
+
+            funcionario.Nome = model.Nome;
+            funcionario.Profissao = model.Profissao;
+
+
+            _mySQLDbContext.Funcionario.Update(funcionario);
+
+            await _mySQLDbContext.SaveChangesAsync();
+
+            return Ok("Alterações feitas com sucesso.");
 
         }
     }

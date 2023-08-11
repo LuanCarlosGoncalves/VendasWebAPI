@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using VendasWebAPI.DbContextMysql;
 using VendasWebAPI.Entidades;
 using VendasWebAPI.ViewModels;
@@ -32,6 +33,26 @@ namespace VendasWebAPI.Controllers
 
             await _mySQLDbContext.SaveChangesAsync();
             return Ok("Sucesso.. gravou no banco");
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Atualizar([FromBody] AtualizarModeloViewModel model)
+        {
+            var modelo = await _mySQLDbContext.Modelo.FirstOrDefaultAsync(p => p.Id == model.Id);
+
+            if (modelo == null)
+            {
+                return BadRequest("modelo não encontrado");
+            }
+
+            modelo.Nome = model.Nome;
+
+            modelo.Cor = model.Cor;
+
+            _mySQLDbContext.Modelo.Update(modelo);
+            await _mySQLDbContext.SaveChangesAsync();
+            return Ok("Alterado meu chapa");
+
         }
     }
 }
