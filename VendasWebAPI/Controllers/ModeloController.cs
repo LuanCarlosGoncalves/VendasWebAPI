@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VendasWebAPI.DbContextMysql;
 using VendasWebAPI.Entidades;
@@ -24,14 +23,12 @@ namespace VendasWebAPI.Controllers
             var modelo = new Modelo
             {
                 Nome = model.Nome,
-
                 Cor = model.Cor,
-
             };
 
             await _mySQLDbContext.Modelo.AddAsync(modelo);
-
             await _mySQLDbContext.SaveChangesAsync();
+
             return Ok("Sucesso.. gravou no banco");
         }
 
@@ -46,11 +43,11 @@ namespace VendasWebAPI.Controllers
             }
 
             modelo.Nome = model.Nome;
-
             modelo.Cor = model.Cor;
 
             _mySQLDbContext.Modelo.Update(modelo);
             await _mySQLDbContext.SaveChangesAsync();
+
             return Ok("Alterado meu chapa");
 
         }
