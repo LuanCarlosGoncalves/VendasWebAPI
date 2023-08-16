@@ -37,6 +37,23 @@ namespace VendasWebAPI.Controllers
 
         }
 
+        [HttpGet("ListarTodos")]
+        public async Task<IActionResult> ListarTodos()
+        {
+            //consulta todos clientes 
+            var funcionarios = await _mySQLDbContext.Funcionario.ToListAsync();
+
+            return Ok(funcionarios);
+        }
+
+        [HttpGet("ListarPorId")]
+        public async Task<IActionResult> ListarPorId(int funcionarioId)
+        {
+            var cliente = await _mySQLDbContext.Cliente.FirstOrDefaultAsync(p => p.Id == funcionarioId);
+
+            return Ok(funcionarioId);
+        }
+
 
         [HttpPut]
 
@@ -61,6 +78,23 @@ namespace VendasWebAPI.Controllers
 
             return Ok("Alterações feitas com sucesso.");
 
+        }
+
+
+        [HttpDelete]
+        public async Task<IActionResult> Excluir(int funcionarioId)
+        {
+            var funcionario = await _mySQLDbContext.Funcionario.FirstOrDefaultAsync(p => p.Id == funcionarioId);
+
+            if (funcionario == null)
+            {
+                return BadRequest("funcionario não encontrado");
+            }
+
+            _mySQLDbContext.Remove(funcionario);
+            await _mySQLDbContext.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

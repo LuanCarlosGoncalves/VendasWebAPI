@@ -32,6 +32,23 @@ namespace VendasWebAPI.Controllers
             return Ok("Sucesso.. gravou no banco");
         }
 
+        [HttpGet("ListarTodos")]
+        public async Task<IActionResult> ListarTodos()
+        {
+
+            var modelo = await _mySQLDbContext.Marca.ToListAsync();
+
+            return Ok(modelo);
+        }
+
+        [HttpGet("ListarPorId")]
+        public async Task<IActionResult> ListarPorId(int modeloId)
+        {
+            var modelo = await _mySQLDbContext.Cliente.FirstOrDefaultAsync(p => p.Id == modeloId);
+
+            return Ok(modelo);
+        }
+
         [HttpPut]
         public async Task<IActionResult> Atualizar([FromBody] AtualizarModeloViewModel model)
         {
@@ -49,6 +66,24 @@ namespace VendasWebAPI.Controllers
             await _mySQLDbContext.SaveChangesAsync();
 
             return Ok("Alterado meu chapa");
+
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Excluir(int modeloId)
+        {
+            var modelo = await _mySQLDbContext.Modelo.FirstOrDefaultAsync(p => p.Id == modeloId);
+
+            if (modelo == null)
+            {
+                return BadRequest("Modelo não encontrado");
+            }
+
+            _mySQLDbContext.Remove(modelo);
+            await _mySQLDbContext.SaveChangesAsync();
+
+            return NoContent();
+
 
         }
     }

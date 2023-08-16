@@ -37,6 +37,25 @@ namespace VendasWebAPI.Controllers
 
         }
 
+        [HttpGet]
+         public async Task<IActionResult> ListarTodos()
+        {
+            var categoria = await _mySQLDbContext.Categoria.ToListAsync();
+
+            return Ok (categoria);
+        }
+
+        [HttpGet("listarporID")]
+
+        public async Task<IActionResult>ListarPorId(int categoriaId)
+        {
+            var categoria = await _mySQLDbContext.Categoria.FirstOrDefaultAsync(p => p.Id == categoriaId);
+
+            return Ok (categoria);
+        }
+
+
+
         [HttpPut]
 
         public async Task<IActionResult> Atualizar([FromBody] AtualizarCategoriaViewModel model)
@@ -60,7 +79,22 @@ namespace VendasWebAPI.Controllers
             return Ok("Alterado com sucesso.....");
          
         }
-        
+
+        [HttpDelete]
+        public async Task<IActionResult> Excluir(int categoriaId)
+        {
+            var categoria = await _mySQLDbContext.Categoria.FirstOrDefaultAsync(p => p.Id == categoriaId);
+
+            if (categoria == null)
+            {
+                return BadRequest("Categoria nao encontrada");
+            }
+
+            _mySQLDbContext.Remove(categoria);
+            await _mySQLDbContext.SaveChangesAsync();
+
+            return NoContent();
+        }
 
 
     }

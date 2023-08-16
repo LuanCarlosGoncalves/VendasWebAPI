@@ -35,6 +35,23 @@ namespace VendasWebAPI.Controllers
 
         }
 
+        [HttpGet("ListarTodos")]
+        public async Task<IActionResult> ListarTodos()
+        {
+
+            var vendedor = await _mySQLDbContext.Vendedor.ToListAsync();
+
+            return Ok(vendedor);
+        }
+
+        [HttpGet("ListarPorId")]
+        public async Task<IActionResult> ListarPorId(int vendedorId)
+        {
+            var vendedor = await _mySQLDbContext.Cliente.FirstOrDefaultAsync(p => p.Id == vendedorId);
+
+            return Ok(vendedor);
+        }
+
 
         [HttpPut]
         public async Task<IActionResult> Atualizar([FromBody] AtualizarVendedorViewModel model)
@@ -54,10 +71,22 @@ namespace VendasWebAPI.Controllers
             await _mySQLDbContext.SaveChangesAsync();
             return Ok("Alterado chucs");
 
+        }
 
+        [HttpDelete]
+        public async Task<IActionResult> Excluir(int vendedorId)
+        {
+            var vendedor = await _mySQLDbContext.Marca.FirstOrDefaultAsync(p => p.Id == vendedorId);
 
+            if (vendedor == null)
+            {
+                return BadRequest("vendedor não encontrado");
+            }
 
+            _mySQLDbContext.Remove(vendedor);
+            await _mySQLDbContext.SaveChangesAsync();
 
+            return NoContent();
 
 
         }
